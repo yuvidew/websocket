@@ -8,6 +8,10 @@ export const createMatcheController = async (req: Request, res: Response, next: 
     try {
         const result = await matchesService.createMatche(req.body);
 
+        if(res.app.locals.broadcastMatchCreated){
+            res.app.locals.broadcastMatchCreated(result);
+        }
+
         return res.status(201).json({
             result
         });

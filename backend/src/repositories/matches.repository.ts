@@ -29,6 +29,7 @@ export const createMatch = async (
     return event;
 }
 
+// get list the all matches according to the limit
 export const getMatches = async (limit: number) =>{
     return await db.select()
                 .from(matches)
