@@ -1,0 +1,23 @@
+$kind: http-request
+name: 'create match - live (spans current time)'
+method: POST
+url: '{{base_url}}/matches'
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "sport": "cricket",
+      "homeTeam": "Eagles",
+      "awayTeam": "Hawks",
+      "startTime": "2020-01-01T00:00:00Z",
+      "endTime": "2099-01-01T00:00:00Z"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('status is 201', () => pm.response.to.have.status(201));

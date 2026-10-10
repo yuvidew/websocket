@@ -1,0 +1,24 @@
+$kind: http-request
+name: 'create match - negative score'
+method: POST
+url: '{{base_url}}/matches'
+order: 7000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "sport": "football",
+      "homeTeam": "Lions",
+      "awayTeam": "Tigers",
+      "startTime": "2026-10-10T18:00:00Z",
+      "endTime": "2026-10-10T19:45:00Z",
+      "homeScore": -1
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('status is 400', () => pm.response.to.have.status(400));
