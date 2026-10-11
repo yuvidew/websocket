@@ -1,4 +1,4 @@
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { db } from "../db/db"
 import { matches } from "../db/schema"
 import { CreatedMatche } from "../types/matches.types";
@@ -35,4 +35,14 @@ export const getMatches = async (limit: number) =>{
                 .from(matches)
                 .orderBy((desc(matches.createdAt)))
                 .limit(limit)
+}
+
+// find a single matche by its id
+export const getMatchById = async (id: number) => {
+    const [match] = await db.select()
+                .from(matches)
+                .where(eq(matches.id, id))
+                .limit(1);
+
+    return match;
 }
